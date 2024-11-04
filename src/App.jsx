@@ -1,25 +1,9 @@
 // src/App.jsx
 import { useState } from "react";
 import "./App.css";
-import "src/components/IngredientList.jsx";
-import "src/components/BurgerStack.jsx";
+import IngredientList from './components/IngredientList'
+import BurgerStack from "./components/BurgerStack";
 
-const App = () => {
-  const [stack, setStack] = useState([]);
-  return (
-    <main>
-      <h1>Burger Stacker</h1>
-      <section>
-        {
-          <>
-            <IngredientList stack={stack} setStack={setStack} />
-            <BurgerStack stack={stack} setStack={setStack} />
-          </>
-        }
-      </section>
-    </main>
-  );
-};
 export const availableIngredients = [
   { name: "Kaiser Bun", color: "saddlebrown" },
   { name: "Sesame Bun", color: "sandybrown" },
@@ -36,4 +20,30 @@ export const availableIngredients = [
   { name: "Cheddar Cheese", color: "#FDE18B" },
   { name: "Swiss Cheese", color: "#F1E1A8" },
 ];
+
+// define a function to remove an Ingredient from stack bc i can just only add to stack,$ make function on click in burger stack to remove from stack
+const App = () => {
+  const [stack, setStack] = useState([]);
+  // new function here just like below example filter thru and maybe look at index to make function work
+  const addToBurger = (newIngredient)=>{
+    setStack([newIngredient, ...stack])
+    
+  }
+
+  return (
+    <main>
+      <h1>Burger Stacker</h1>
+      <section>
+        {
+          <>
+            <IngredientList availableIngredients={availableIngredients} addToBurger={addToBurger} />
+            <BurgerStack stack={stack}/>
+          </>
+        }
+      </section>
+    </main>
+  );
+};
+
+
 export default App;
